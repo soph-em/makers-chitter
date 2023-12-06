@@ -23,9 +23,11 @@ def create_account():
 
     user = User(None, request.form['username'], request.form['display_name'], request.form['email'], request.form['password'])
     if not user.is_valid():
+        print('user not valid')
         return render_template('create_account.html', user=user, errors = user.generate_errors()), 400
     print('failing here 2')
     user = repository.create(user)
+    print('created user')
     return redirect('/dashboard')
 
 @app.route("/dashboard")
