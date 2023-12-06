@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chitter - Create Account</title>
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block body %}
+    <h1>Create Account</h1>
+    <form action="'/users" method="post">
+        {% if errors %}
+        <!-- If so, we show them. -->
+        <p class="t-errors">
+          There were errors with your submission: {{ errors }}
+        </p>
+      {% endif %}
+        <p>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+        <p>
+
+        </p>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+        </p>
+        <p>
+            <label for="display_name">Display Name</label>
+            <input type="text" name="display_name" id="display_name">            
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password">
+        </p>
+        <input type="submit" value="Create Account">
+    </form>
+    {% endblock %}
+</body>
+</html>
