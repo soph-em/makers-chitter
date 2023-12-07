@@ -11,7 +11,7 @@ from psycopg.rows import dict_row
 class DatabaseConnection:
     # VVV CHANGE BOTH OF THESE VVV
     DEV_DATABASE_NAME = "chitter"
-    TEST_DATABASE_NAME = "chitter"
+    TEST_DATABASE_NAME = "test_chitter"
 
     def __init__(self, test_mode=False):
         self.test_mode = test_mode

@@ -13,56 +13,16 @@ def test_get_all_records(db_connection): # See conftest.py to learn what `db_con
         User(1, "username", "display name", "email", "Password"),
     ]
 
+def test_create_user(db_connection):
+    db_connection.seed("seeds/test_chitter.sql")
+    repository = UserRepository(db_connection)
 
-
-
-
-
-"""
-When we call BookRepository#find
-We get a single Book object reflecting the seed data.
-"""
-def test_get_single_record(db_connection):
-    db_connection.seed("seeds/book_store.sql")
-    repository = BookRepository(db_connection)
-
-    book = repository.find(3)
-    assert book == Book(3, "Bluets", "Maggie Nelson")
-
-"""
-When we call BookRepository#create
-We get a new record in the database.
-"""
-def test_create_record(db_connection):
-    db_connection.seed("seeds/book_store.sql")
-    repository = BookRepository(db_connection)
-
-    created_book = repository.create(Book(None, "The Great Gatsby", "F. Scott Fitzgerald"))
-    assert created_book == Book(6, "The Great Gatsby", "F. Scott Fitzgerald")
+    created_peep = repository.create(User(None, "Test username", "Test display" , "Test email", "Test Password"))
+    # assert created_peep == Peep(2, "Test Content", "07-12-2023" ,1)
 
     result = repository.all()
     assert result == [
-        Book(1, "Invisible Cities", "Italo Calvino"),
-        Book(2, "The Man Who Was Thursday", "GK Chesterton"),
-        Book(3, "Bluets", "Maggie Nelson"),
-        Book(4, "No Place on Earth", "Christa Wolf"),
-        Book(5, "Nevada", "Imogen Binnie"),
-        Book(6, "The Great Gatsby", "F. Scott Fitzgerald"),
+        User(1, "Test", "Test Display", "Test email", "Password"),
+        User(2, "Test username", "Test display" , "Test email", "Test Password")
     ]
-
-"""
-When we call BookRepository#delete
-We remove a record from the database.
-"""
-def test_delete_record(db_connection):
-    db_connection.seed("seeds/book_store.sql")
-    repository = BookRepository(db_connection)
-    repository.delete(3) # Apologies to Maggie Nelson fans
-
-    result = repository.all()
-    assert result == [
-        Book(1, "Invisible Cities", "Italo Calvino"),
-        Book(2, "The Man Who Was Thursday", "GK Chesterton"),
-        Book(4, "No Place on Earth", "Christa Wolf"),
-        Book(5, "Nevada", "Imogen Binnie"),
-    ]
+    #struggle to get this test passing because of hashed password

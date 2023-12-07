@@ -33,7 +33,7 @@ def create_account():
         return render_template('create_account.html', user=user, errors = user.generate_errors()), 400
 
     user = repository.create(user)
-    return redirect('/dashboard')
+    return redirect('/login_account')
 
 @app.route('/login_account')
 def display_login():

@@ -5,6 +5,14 @@ class UserRepository():
     def __init__(self, connection):
         self._connection = connection
 
+    def all(self):
+        rows = self._connection.execute('SELECT * from users')
+        users = []
+        for row in rows:
+            user = User(row['id'], row['username'], row['display_name'], row['email'], row['password'])
+            users.append(user)
+        return users
+
     def create(self, user):
         print('create method on user repository')
         binary_password = user.password.encode("utf-8")
