@@ -1,4 +1,5 @@
 from lib.peep import *
+from datetime import datetime, timezone
 
 class PeepRepository:
     def __init__(self, connection):
@@ -17,3 +18,16 @@ class PeepRepository:
         row = rows[0]
         peep.id = row["id"]
         return peep
+    
+    
+    def list_timeline_peeps(self):
+        rows = self._connection.execute('SELECT peeps.id, peeps.content, peeps.post_time, users.display_name as author_name from peeps JOIN users on users.id = peeps.user_id')
+        peeps = []
+        for row in rows:
+            formatted_post_time = datetime.fromisoformat(str(row['post_time']))
+            user_friendly_format = formatted_post_time.strftime("%H:%M %d-%m-%Y")
+            item = Peep(row['id'], row['content'], user_friendly_format, row['author_name'])
+            peeps.append(item)
+
+        res = peeps[::-1]
+        return res

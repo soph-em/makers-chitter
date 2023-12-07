@@ -1,6 +1,7 @@
 from flask import Flask, render_template, g, redirect, url_for, request, redirect, session
 from lib.database_connection import get_flask_database_connection
 from lib.user_repository import * 
+from lib.peep_repository import *
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -10,12 +11,17 @@ app.secret_key="anystringhere"
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    connection = get_flask_database_connection(app)
+    repository = PeepRepository(connection)
+    peeps = repository.list_timeline_peeps()
+
+    return render_template("index.html", peeps=peeps)
 
 @app.route('/create_account')
 def get_create_account():
     return render_template("create_account.html")
 
+#POST Create account
 @app.route("/create_account", methods=['POST'])
 def create_account():
     connection = get_flask_database_connection(app)
@@ -32,6 +38,7 @@ def create_account():
 def display_login():
     return render_template('login.html')
 
+#POST login account
 @app.route('/login_account', methods=['POST'])
 def login_account():
     email = request.form['email']
@@ -62,7 +69,7 @@ def account_page():
 @app.route('/logout')
 def logout_account():
     session.clear()
-    return render_template('/index.html')
+    return redirect('/')
 
 @app.route("/dashboard")
 def dashboard():

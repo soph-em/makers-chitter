@@ -33,3 +33,5 @@ class UserRepository():
         for row in rows:
             user = User(row['id'], row['username'], row['display_name'], row['email'], row['password'])
         return user
+    
+    # def find_by_id(self, id):

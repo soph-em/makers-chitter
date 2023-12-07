@@ -3,12 +3,27 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
+  {% if 'user_id' not in session %}
   <h1 class="text-center">Chitter</h1>
+  {% else %}
+  <h1 class="text-center">Welcome back to Chitter</h1>
+  {% endif %}
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
-      <div class="jumbotron">
-        Hello Peeps
+        {% if 'user_id' in session %}
+        <p>Test</p>
+        {% endif %}
+      <!-- <div class="jumbotron">
+        Hello Peeps, Welcome to Chitter
+      </div> -->
+      {% for peep in peeps %}
+      <div class="h-80 p-5 bg-light rounded-3">
+        <!-- h-100 p-5 bg-body-tertiary border rounded-3 -->
+        <p>{{peep.content}}</p>
+        <p class="fs-6 mb-0">Posted: {{peep.post_time}}</p>
+        <p class="">By: {{peep.user_id}}</p>
       </div>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
