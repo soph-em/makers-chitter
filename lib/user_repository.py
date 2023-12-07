@@ -27,3 +27,9 @@ class UserRepository():
 
         # If that SELECT finds any rows, the password is correct.
         return len(rows) > 0
+    
+    def find_by_email(self, email):
+        rows = self._connection.execute('SELECT * from users WHERE email = %s', [email])
+        for row in rows:
+            user = User(row['id'], row['username'], row['display_name'], row['email'], row['password'])
+        return user
