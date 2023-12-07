@@ -6,22 +6,28 @@
   {% if 'user_id' not in session %}
   <h1 class="text-center">Chitter</h1>
   {% else %}
-  <h1 class="text-center">Welcome back to Chitter</h1>
+  <form action="/post_peep" method="post" class="peep-textarea container bg-body p-2">
+    <p class="peep-textarea">
+        <!-- <label for="email">Email</label> -->
+        <textarea class="form-control" rows="3" type="text" name="content" id="content"></textarea>
+    </p>
+    <input type="submit" value="Create Peep">
+  </form>
   {% endif %}
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
         {% if 'user_id' in session %}
-        <p>Test</p>
+        <!-- <p>Test</p> -->
         {% endif %}
       <!-- <div class="jumbotron">
         Hello Peeps, Welcome to Chitter
       </div> -->
       {% for peep in peeps %}
-      <div class="h-80 p-5 bg-light rounded-3">
+      <div class="h-80 p-5 m-2 bg-light rounded-3">
         <!-- h-100 p-5 bg-body-tertiary border rounded-3 -->
         <p>{{peep.content}}</p>
-        <p class="fs-6 mb-0">Posted: {{peep.post_time}}</p>
-        <p class="">By: {{peep.user_id}}</p>
+        <p class="mb-0 text-muted">By: @{{peep.user_id}}</p>
+        <p class="fs-6 mb-0 text-muted">Posted: {{peep.post_time}}</p>
       </div>
       {% endfor %}
     </div>

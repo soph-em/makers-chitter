@@ -2,6 +2,7 @@ from flask import Flask, render_template, g, redirect, url_for, request, redirec
 from lib.database_connection import get_flask_database_connection
 from lib.user_repository import * 
 from lib.peep_repository import *
+import datetime
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -37,6 +38,18 @@ def create_account():
 @app.route('/login_account')
 def display_login():
     return render_template('login.html')
+
+#POST peep
+@app.route('/post_peep', methods=['POST'])
+def post_peep():
+    connection = get_flask_database_connection(app)
+    repository = PeepRepository(connection)
+    time = datetime.datetime.now().isoformat()
+    user_id = list(session.values())
+    # print(user_id[0])
+    peep = Peep(None, request.form['content'],time, user_id[0])
+    peep = repository.create(peep)
+    return redirect('/')
 
 #POST login account
 @app.route('/login_account', methods=['POST'])
