@@ -137,7 +137,7 @@ This is an example of how to list things you need to use the software and how to
   * Ensure you have PostgreSQL installed.
   * Create a database using the following command:
    ```sh
-   createdb chitter.sql
+   createdb chitter
    ```
 3. Initialise the Database
 * Navigate to the project directory
