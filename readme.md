@@ -67,7 +67,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Chitter]](/Chitter-logged-in.png)
+![[Chitter]](/Chitter-logged-in.png)
 
 ## ***User stories:***
 
